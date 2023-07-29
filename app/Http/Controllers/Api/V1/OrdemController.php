@@ -29,6 +29,7 @@ class OrdemController extends Controller
         $ordens = $query->paginate(12);
         return OrdemResource::collection($ordens);
     }
+    
     public function allordens()
     {
         $ordens = Ordem::all();
@@ -70,7 +71,7 @@ class OrdemController extends Controller
      */
     public function show(Ordem $ordem)
     {
-        //
+        return new OrdemResource($ordem);
     }
 
     /**

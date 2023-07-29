@@ -14,9 +14,13 @@ use App\Http\Controllers\AuthController;
 Route::prefix('v1')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/invoices', InvoiceController::class);
+
     Route::apiResource('/clientes', ClienteController::class);
     Route::get('/allclientes', [ClienteController::class, 'allclientes']);
-    Route::apiResource('/ordens', OrdemController::class);
+
+    Route::apiResource('/ordens', OrdemController::class)->parameters([
+        'ordens' => 'ordem'
+    ]);
     Route::get('/allordens', [OrdemController::class, 'allordens']);
     
     Route::post('/login', [AuthController::class, 'login']);
