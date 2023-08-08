@@ -29,7 +29,7 @@ class OrdemController extends Controller
         $ordens = $query->paginate(12);
         return OrdemResource::collection($ordens);
     }
-    
+
     public function allordens()
     {
         $ordens = Ordem::all();
@@ -39,12 +39,11 @@ class OrdemController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        {
+    { {
             // if(!auth()->user()->tokenCan('user-store')) {
             //     return $this->error('Unauthorized', 403);
             // }
-            
+
             $validator = Validator::make($request->all(), [
                 'cliente_id' => 'required',
                 'equipamento' => 'required',
@@ -56,13 +55,13 @@ class OrdemController extends Controller
             if ($validator->fails()) {
                 return $this->error('Dados inválidos!', 422, $validator->errors());
             }
-    
+
             $created = Ordem::create($request->all());
 
             if ($created) {
                 return $this->response('Ordem cadastrada com sucesso!', 200, new OrdemResource($created));
             }
-            return $this->error('Ordem não cadastrada', 400);  
+            return $this->error('Ordem não cadastrada', 400);
         }
     }
 
@@ -79,7 +78,29 @@ class OrdemController extends Controller
      */
     public function update(Request $request, Ordem $ordem)
     {
-        //
+
+        // dd($request);
+        $validator = Validator::make($request->all(), [
+            'equipamento' => 'required',
+            'senha' => 'required',
+            'defeito' => 'required',
+            'estado' => 'required',
+            'detalhes' => 'required',
+            'valservico' => 'required',
+            'status' => 'required',
+            'tecnico' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Dados inválidos UPDATE!', 422, $validator->errors());
+        }
+
+        $updated = $ordem->update($request->all());
+
+        if ($updated) {
+            return $this->response('Ordem alterada com sucesso!', 200, new OrdemResource($updated));
+        }
+        return $this->error('Ordem não alterada', 400);
     }
 
     /**
