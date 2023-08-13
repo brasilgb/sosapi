@@ -24,15 +24,13 @@ return new class extends Migration
             $table->string('orcamento', 50)->nullable();
             $table->text('descorcamento')->nullable();
             $table->text('detalhes')->nullable(); // servicos executados
+            $table->text('pecas')->nullable();
             $table->decimal('valpecas', 6, 2)->nullable();
             $table->decimal('valservico', 6, 2)->nullable();
             $table->decimal('custo', 6, 2)->nullable();
             $table->string('previsao')->nullable();
-            $table->tinyInteger('statusorcamento')->nullable();
-            $table->tinyInteger('concluido')->nullable();
             $table->tinyInteger('status')->default('1');
-            $table->tinyInteger('comunicado')->nullable();
-            $table->tinyInteger('entrega')->nullable();
+            $table->tinyInteger('envioemail')->nullable();
             $table->dateTime('dtentrega')->nullable();
             $table->string('tecnico', 50)->nullable();
             $table->text('observacoes')->nullable();

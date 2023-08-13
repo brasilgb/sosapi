@@ -8,6 +8,7 @@ use App\Models\Ordem;
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class OrdemController extends Controller
 {
@@ -79,26 +80,24 @@ class OrdemController extends Controller
     public function update(Request $request, Ordem $ordem)
     {
 
-        // dd($request);
+        // dd(Carbon::parse($request->dtentrada)->format('Y-m-d H:i:s'));
         $validator = Validator::make($request->all(), [
             'equipamento' => 'required',
             'senha' => 'required',
             'defeito' => 'required',
             'estado' => 'required',
-            'detalhes' => 'required',
-            'valservico' => 'required',
-            'status' => 'required',
             'tecnico' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->error('Dados inválidos UPDATE!', 422, $validator->errors());
         }
-
-        $updated = $ordem->update($request->all());
+        $data = $request->all();
+        $data['dtentrega'] = Carbon::parse($request->dtentrada)->format('Y-m-d H:i:s');
+        $updated = $ordem->update($data);
 
         if ($updated) {
-            return $this->response('Ordem alterada com sucesso!', 200, new OrdemResource($updated));
+            return $this->response('Ordem alterada com sucesso!', 200, new OrdemResource($ordem));
         }
         return $this->error('Ordem não alterada', 400);
     }
@@ -108,6 +107,12 @@ class OrdemController extends Controller
      */
     public function destroy(Ordem $ordem)
     {
-        //
+
+        $deleted = $ordem->delete();
+
+        if ($deleted) {
+            return $this->response('Ordem deletada com sucesso!', 200);
+        }
+        return $this->response('Ordem não deletada!', 400);
     }
 }
