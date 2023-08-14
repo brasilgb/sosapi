@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ordens', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('numordem');
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->string('equipamento', 40);

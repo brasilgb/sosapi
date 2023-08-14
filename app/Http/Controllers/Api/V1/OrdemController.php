@@ -107,7 +107,6 @@ class OrdemController extends Controller
      */
     public function destroy(Ordem $ordem)
     {
-
         $deleted = $ordem->delete();
 
         if ($deleted) {

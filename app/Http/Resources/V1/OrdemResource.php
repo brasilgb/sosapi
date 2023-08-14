@@ -21,6 +21,7 @@ class OrdemResource extends JsonResource
                 'telefone' => $this->cliente->telefone,
             ],
             "id" => $this->id,
+            "numordem" => $this->numordem,
             "cliente_id" => $this->cliente_id,
             "equipamento" => $this->equipamento,
             "modelo" => $this->modelo,
