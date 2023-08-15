@@ -20,4 +20,8 @@ class Agenda extends Model
         'status',
         'observacoes'
     ];
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 }

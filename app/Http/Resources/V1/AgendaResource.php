@@ -16,6 +16,11 @@ class AgendaResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'cliente' => [
+                'nome' => $this->cliente->nome,
+                'telefone' => $this->cliente->telefone,
+            ],
+            'id' => $this->id,
             'cliente_id' => $this->cliente_id,
             'datahora' => $this->datahora,
             'servico' => $this->servico,

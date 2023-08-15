@@ -19,7 +19,7 @@ class AgendaController extends Controller
     {
         $search = $request->get('q');
 
-        $query = Agenda::orderBy('id', 'DESC');
+        $query = Agenda::with('cliente')->orderBy('id', 'DESC');
 
         if ($search) {
             $query->whereDate('datahora', $search);
@@ -57,9 +57,9 @@ class AgendaController extends Controller
         $created = Agenda::create($request->all());
 
         if ($created) {
-            return $this->response('Agenda alterada com sucesso!', 200, new AgendaResource($created));
+            return $this->response('Agenda adicionada com sucesso!', 200, new AgendaResource($created));
         }
-        return $this->error('Agenda não alterada', 400);
+        return $this->error('Agenda não adicionada', 400);
     }
 
     /**
