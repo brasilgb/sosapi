@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ClienteController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\InvoiceController;
 use App\Http\Controllers\Api\V1\OrdemController;
+use App\Http\Controllers\Api\V1\ProdutoController;
+use App\Http\Controllers\Api\V1\AgendaController;
 use App\Http\Controllers\AuthController;
+use App\Models\Produto;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -23,7 +25,12 @@ Route::prefix('v1')->group(function () {
     ]);
     Route::get('/allordens', [OrdemController::class, 'allordens']);
     
+    Route::apiResource('/produtos', ProdutoController::class);
+    Route::get('/allprodutos', [ProdutoController::class, 'allprodutos']);
+
+    Route::apiResource('/agendas', AgendaController::class);
+    Route::get('/allagendas', [AgendaController::class, 'allagendas']);
+    
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
-
 });

@@ -16,11 +16,11 @@ return new class extends Migration
             $table->text('codbarra')->nullable();
             $table->string('descricao');
             $table->tinyInteger('movimento');
-            $table->double('valentrada');
-            $table->double('valsaida');
+            $table->double('valcompra');
+            $table->double('valvenda');
             $table->tinyInteger('unidade');
-            $table->string('qtdmaxima');
-            $table->string('qtdminima');
+            $table->string('estmaximo');
+            $table->string('estminimo');
             $table->tinyInteger('tipo');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();

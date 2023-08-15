@@ -15,11 +15,11 @@ class Produto extends Model
             'codbarra',
             'descricao',
             'movimento',
-            'valentrada',
-            'valsaida',
+            'valcompra',
+            'valvenda',
             'unidade',
-            'qtdmaxima',
-            'qtdminima',
+            'estmaximo',
+            'estminimo',
             'tipo',
     ];
 }
