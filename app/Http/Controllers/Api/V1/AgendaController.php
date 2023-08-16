@@ -89,7 +89,7 @@ class AgendaController extends Controller
             return $this->error('Dados inválidos!', 422, $validator->errors());
         }
 
-        $created = $agenda->create($request->all());
+        $created = $agenda->update($request->all());
 
         if ($created) {
             return $this->response('Agenda alterada com sucesso!', 200, new AgendaResource($agenda));
