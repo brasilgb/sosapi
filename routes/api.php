@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\InvoiceController;
 use App\Http\Controllers\Api\V1\OrdemController;
 use App\Http\Controllers\Api\V1\ProdutoController;
 use App\Http\Controllers\Api\V1\AgendaController;
+use App\Http\Controllers\Api\V1\MensagemController;
 use App\Http\Controllers\AuthController;
 use App\Models\Produto;
 
@@ -30,6 +31,9 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('/agendas', AgendaController::class);
     Route::get('/allagendas', [AgendaController::class, 'allagendas']);
+    
+    Route::apiResource('/mensagens', MensagemController::class);
+    Route::get('/allmensagens', [MensagemController::class, 'allmensagens']);
     
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
