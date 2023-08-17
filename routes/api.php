@@ -32,8 +32,9 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('/agendas', AgendaController::class);
     Route::get('/allagendas', [AgendaController::class, 'allagendas']);
     
-    Route::apiResource('/mensagens', MensagemController::class);
-    Route::get('/allmensagens', [MensagemController::class, 'allmensagens']);
+    Route::apiResource('/mensagens', MensagemController::class)->parameters([
+        'mensagens' => 'mensagem'
+    ]);
     
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);

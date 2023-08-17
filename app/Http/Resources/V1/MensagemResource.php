@@ -16,11 +16,7 @@ class MensagemResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'usuario' => [
-                'nome' => $this->usuario->nome,
-            ],
             'id' => $this->id,
-            'usuario_id' => $this->usuario_id,
             'remetente' => $this->remetente,
             'destinatario' => $this->destinatario,
             'mensagem' => $this->mensagem,

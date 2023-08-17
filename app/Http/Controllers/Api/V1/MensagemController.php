@@ -19,10 +19,10 @@ class MensagemController extends Controller
     {
         $search = $request->get('q');
 
-        $query = Mensagem::with('users')->orderBy('id', 'DESC');
+        $query = Mensagem::orderBy('id', 'DESC');
 
         if ($search) {
-            $query->whereDate('datahora', $search);
+            $query->where('remetente', 'like', '%' . $search . '%');
         }
 
         $agendas = $query->paginate(12);
@@ -36,11 +36,9 @@ class MensagemController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'usuario_id' => 'required',
             'remetente' => 'required',
             'destinatario' => 'required',
-            'mensagem' => 'required',
-            'status' => 'required',
+            'mensagem' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -70,18 +68,16 @@ class MensagemController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'usuario_id' => 'required',
             'remetente' => 'required',
             'destinatario' => 'required',
-            'mensagem' => 'required',
-            'status' => 'required',
+            'mensagem' => 'required'
         ]);
 
         if ($validator->fails()) {
             return $this->error('Dados inválidos!', 422, $validator->errors());
         }
 
-        $created = Mensagem::create($request->all());
+        $created = $mensagem->update($request->all());
 
         if ($created) {
             return $this->response('Mensagem alterada com sucesso!', 200, new MensagemResource($mensagem));

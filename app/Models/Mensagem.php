@@ -12,16 +12,9 @@ class Mensagem extends Model
     protected $table = "mensagens";
 
     protected $fillable = [
-        'usuario_id',
         'remetente',
         'destinatario',
         'mensagem',
         'status',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-    
 }

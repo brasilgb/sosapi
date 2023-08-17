@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('message', function (Blueprint $table) {
+        Schema::create('mensagens', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id');
-            $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('remetente', 50);
-            $table->string('destinatário', 50);
+            $table->string('destinatario', 50);
             $table->text('mensagem');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('message');
+        Schema::dropIfExists('mensagens');
     }
 };
