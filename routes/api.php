@@ -8,8 +8,8 @@ use App\Http\Controllers\Api\V1\OrdemController;
 use App\Http\Controllers\Api\V1\ProdutoController;
 use App\Http\Controllers\Api\V1\AgendaController;
 use App\Http\Controllers\Api\V1\MensagemController;
+use App\Http\Controllers\Api\V1\EmpresaController;
 use App\Http\Controllers\AuthController;
-use App\Models\Produto;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -35,7 +35,10 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('/mensagens', MensagemController::class)->parameters([
         'mensagens' => 'mensagem'
     ]);
-    
+
+    Route::get('/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
+    Route::patch('/empresa/{empresa}', [EmpresaController::class, 'update'])->name('empresa.update');
+
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
 });
