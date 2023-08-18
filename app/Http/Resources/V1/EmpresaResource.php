@@ -22,6 +22,7 @@ class EmpresaResource extends JsonResource
             'logo' => $this->logo,
             'endereco' => $this->endereco,
             'bairro' => $this->bairro,
+            'uf' => $this->uf,
             'cidade' => $this->cidade,
             'cep' => $this->cep,
             'telefone' => $this->telefone,

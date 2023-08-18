@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('empresa', function (Blueprint $table) {
             $table->id();
-            $table->string('empresa')->nullable();
-            $table->string('razao')->nullable();
-            $table->string('cnpj')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('endereco')->nullable();
-            $table->string('bairro')->nullable();
-            $table->string('cidade')->nullable();
-            $table->string('cep')->nullable();
-            $table->string('telefone')->nullable();
-            $table->string('site')->nullable();
-            $table->string('email')->nullable();
+            $table->string('empresa', 50)->nullable();
+            $table->string('razao', 50)->nullable();
+            $table->string('cnpj', 50)->nullable();
+            $table->string('logo', 100)->nullable();
+            $table->string('endereco', 50)->nullable();
+            $table->string('bairro', 50)->nullable();
+            $table->string('uf', 50)->nullable();
+            $table->string('cidade', 50)->nullable();
+            $table->string('cep', 50)->nullable();
+            $table->string('telefone', 50)->nullable();
+            $table->string('site', 50)->nullable();
+            $table->string('email', 50)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });

@@ -18,6 +18,7 @@ class Empresa extends Model
         'logo',
         'endereco',
         'bairro',
+        'uf',
         'cidade',
         'cep',
         'telefone',

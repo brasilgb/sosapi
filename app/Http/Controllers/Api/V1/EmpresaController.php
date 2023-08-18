@@ -32,13 +32,13 @@ class EmpresaController extends Controller
     public function update(Request $request, Empresa $empresa)
     {
 
+        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'empresa' => 'required',
             'razao' => 'required',
             'cnpj' => 'required',
-            'logo' => 'required',
             'endereco' => 'required',
             'bairro' => 'required',
+            'uf' => 'required',
             'cidade' => 'required',
             'cep' => 'required',
             'telefone' => 'required',
