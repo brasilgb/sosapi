@@ -16,7 +16,6 @@ class EmpresaResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'empresa' => $this->empresa,
             'razao' => $this->razao,
             'cnpj' => $this->cnpj,
             'logo' => $this->logo,

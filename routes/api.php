@@ -36,8 +36,7 @@ Route::prefix('v1')->group(function () {
         'mensagens' => 'mensagem'
     ]);
 
-    Route::get('/empresa', [EmpresaController::class, 'index'])->name('empresa.index');
-    Route::patch('/empresa/{empresa}', [EmpresaController::class, 'update'])->name('empresa.update');
+    Route::apiResource('/empresa', EmpresaController::class);
 
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);

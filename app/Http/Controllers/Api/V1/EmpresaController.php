@@ -18,20 +18,26 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-
-        $empresa = Empresa::get();
-        if ($empresa->isEmpty()) {
+        if (Empresa::get()->isEmpty()) {
             Empresa::create();
-        }
+        } 
+        $query = Empresa::orderBy("id", "DESC")->first();
+        $empresa = Empresa::where("id", $query->id)->get();
         return EmpresaResource::collection($empresa);
     }
+  /**
+     * Display the specified resource.
+     */
+    public function show(Empresa $empresa)
+    {
 
+        return new EmpresaResource($empresa);
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Empresa $empresa)
     {
-
         dd($request->all());
         $validator = Validator::make($request->all(), [
             'razao' => 'required',
@@ -56,5 +62,6 @@ class EmpresaController extends Controller
             return $this->response('Empresa alterada com sucesso!', 200, new EmpresaResource($empresa));
         }
         return $this->error('Empresa não alterada', 400);
+
     }
 }
