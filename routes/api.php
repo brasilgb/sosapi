@@ -37,6 +37,7 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::apiResource('/empresa', EmpresaController::class);
+    Route::post('/empresa/upload/{empresa}', [EmpresaController::class, 'upload'])->name('empresa.upload');
 
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
