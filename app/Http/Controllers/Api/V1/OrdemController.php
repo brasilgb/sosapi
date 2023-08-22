@@ -92,6 +92,7 @@ class OrdemController extends Controller
         if ($validator->fails()) {
             return $this->error('Dados inválidos UPDATE!', 422, $validator->errors());
         }
+        
         $data = $request->all();
         $data['dtentrega'] = Carbon::parse($request->dtentrada)->format('Y-m-d H:i:s');
         $updated = $ordem->update($data);

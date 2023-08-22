@@ -6,25 +6,57 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
-        return UserResource::collection($users);
+        $search = $request->get('q');
+
+        $query = User::orderBy('id', 'DESC');
+
+        if ($search) {
+            $query->where('nome', 'like', '%' . $search . '%');
+        }
+
+        $usuarios = $query->paginate(12);
+        return UserResource::collection($usuarios);
     }
 
+    public function allusers()
+    {
+        $users = User::all();
+        return UserResource::collection($users);
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'function' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Dados inválidos!', 422, $validator->errors());
+        }
+
+        $created = User::create($request->all());
+
+        if ($created) {
+            return $this->response('Usuário cadastrado com sucesso!', 200, new UserResource($created));
+        }
+        return $this->error('Usuário não cadastrado', 400);
     }
 
     /**
@@ -39,16 +71,38 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => "unique:users,email,$user->id,id",
+            'password' => 'required',
+            'function' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('Dados inválidos!', 422, $validator->errors());
+        }
+
+        $created = $user->create($request->all());
+
+        if ($created) {
+            return $this->response('Usuário editado com sucesso!', 200, new UserResource($user));
+        }
+        return $this->error('Usuário não editado', 400);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $deleted = $user->delete();
+
+        if ($deleted) {
+            return $this->response('Usuário deletado com sucesso!', 200);
+        }
+        return $this->response('Usuário não deletado!', 400);
     }
 }

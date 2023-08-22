@@ -11,25 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('email', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('function');
-            $table->string('status');
-            $table->rememberToken();
+            $table->string('servidor', 50)->nullable();
+            $table->string('porta', 50)->nullable();
+            $table->string('seguranca', 50)->nullable();
+            $table->string('usuario', 50)->nullable();
+            $table->string('senha', 50)->nullable();
+            $table->string('assunto', 60)->nullable();
+            $table->text('mensagem')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('email');
     }
 };
