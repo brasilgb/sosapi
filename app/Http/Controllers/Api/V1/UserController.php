@@ -22,7 +22,7 @@ class UserController extends Controller
         $query = User::orderBy('id', 'DESC');
 
         if ($search) {
-            $query->where('nome', 'like', '%' . $search . '%');
+            $query->where('name', 'like', '%' . $search . '%');
         }
 
         $usuarios = $query->paginate(12);
@@ -73,10 +73,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => "unique:users,email,$user->id,id",
-            'password' => 'required',
+            'email' => "unique:users,email,$user->id",
             'function' => 'required',
             'status' => 'required',
         ]);
@@ -84,8 +84,9 @@ class UserController extends Controller
         if ($validator->fails()) {
             return $this->error('Dados inválidos!', 422, $validator->errors());
         }
-
-        $created = $user->create($request->all());
+        $data = $request->all();
+        $data['password'] = $request->password ? $request->password : $user->password;
+        $created = $user->update($data);
 
         if ($created) {
             return $this->response('Usuário editado com sucesso!', 200, new UserResource($user));
