@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\AgendaController;
 use App\Http\Controllers\Api\V1\EmailController;
 use App\Http\Controllers\Api\V1\MensagemController;
 use App\Http\Controllers\Api\V1\EmpresaController;
+use App\Http\Controllers\Api\V1\ImagemController;
 use App\Http\Controllers\Api\V1\NotificacaoController;
 use App\Http\Controllers\AuthController;
 
@@ -49,6 +50,8 @@ Route::prefix('v1')->group(function () {
         'notificacoes' => 'notificacao'
     ]);
     
+    Route::apiResource('/imagens', ImagemController::class);
+
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
 });

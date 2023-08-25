@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
+use App\Models\Imagem;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class ImagemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,15 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        Imagem::create($request->all());
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Image $image)
+    public function show(Imagem $imagem)
     {
         //
     }
@@ -35,7 +37,7 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, Imagem $imagem)
     {
         //
     }
@@ -43,7 +45,7 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Image $image)
+    public function destroy(Imagem $imagem)
     {
         //
     }
