@@ -3,17 +3,26 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\ImagemResource;
 use App\Models\Imagem;
+use App\Models\Ordem;
 use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
 
 class ImagemController extends Controller
 {
+
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = $request->ordem;
+
+        $imagem = Imagem::where("ordem_id", $query)->get();
+
+        return ImagemResource::collection($imagem);
     }
 
     /**
@@ -21,9 +30,27 @@ class ImagemController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        Imagem::create($request->all());
+        $storePath = public_path('storage/ordens/' . $request->ordem_id);
+        if (!file_exists($storePath)) {
+            mkdir($storePath, 0755, true);
+        };
+        if ($request->imagem) {
+            foreach ($request->imagem as $file) {
+                // $originalname = $file->getClientOriginalName();
+                $filename = time() . rand(1, 50) . '.' . $file->extension();
+                $file->move($storePath, $filename);
 
+                $created = Imagem::create([
+                    'ordem_id' => $request->ordem_id,
+                    'imagem' => $filename
+                ]);
+            }
+        }
+
+        if ($created) {
+            return $this->response('Imagens cadastradas com sucesso!', 200, new ImagemResource($created));
+        }
+        return $this->error('Imagens não cadastradas', 400);
     }
 
     /**
@@ -33,6 +60,7 @@ class ImagemController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -47,6 +75,11 @@ class ImagemController extends Controller
      */
     public function destroy(Imagem $imagem)
     {
-        //
+        $deleted = $imagem->delete();
+
+        if ($deleted) {
+            return $this->response('Imagem deletada com sucesso!', 200);
+        }
+        return $this->response('Imagem não deletada!', 400);
     }
 }

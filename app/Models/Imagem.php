@@ -15,10 +15,5 @@ class Imagem extends Model
         'ordem_id',
         'imagem'
     ];
-    
-    public function ordem()
-    {
-        return $this->belongsTo(Ordem::class);
-    }
 
 }

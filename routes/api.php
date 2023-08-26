@@ -20,8 +20,6 @@ use App\Http\Controllers\AuthController;
 Route::prefix('v1')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::get('/allusers', [UserController::class, 'allusers']);
-    
-    Route::apiResource('/invoices', InvoiceController::class);
 
     Route::apiResource('/clientes', ClienteController::class);
     Route::get('/allclientes', [ClienteController::class, 'allclientes']);
@@ -50,7 +48,9 @@ Route::prefix('v1')->group(function () {
         'notificacoes' => 'notificacao'
     ]);
     
-    Route::apiResource('/imagens', ImagemController::class);
+    Route::apiResource('/imagens', ImagemController::class)->parameters([
+        'imagens' => 'imagem'
+    ]);
 
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);

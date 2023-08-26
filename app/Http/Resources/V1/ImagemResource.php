@@ -14,6 +14,10 @@ class ImagemResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'ordem_id' => $this->ordem_id,
+            'imagem' => $this->imagem
+        ];
     }
 }

@@ -59,9 +59,9 @@ class EmpresaController extends Controller
         }
         $data['logo'] = $request->hasfile('logo') ? $fileName : $empresa->logo;
 
-        $created = $empresa->update($data);
+        $updated = $empresa->update($data);
 
-        if ($created) {
+        if ($updated) {
             return $this->response('Empresa alterada com sucesso!', 200, new EmpresaResource($empresa));
         }
         return $this->error('Empresa não alterada', 400);
