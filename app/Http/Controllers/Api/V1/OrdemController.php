@@ -119,25 +119,24 @@ class OrdemController extends Controller
         return $this->response('Ordem não deletada!', 400);
     }
 
-    public function printTermo()
+    public function printTermo($id)
     {
+
         $storePath = public_path('storage/ordens/pdf');
         if (!file_exists($storePath)) {
             mkdir($storePath, 0755, true);
         };
-        $users = User::get();
+        $ordens = Ordem::where('id', $id)->with('cliente')->get();
         $data = [
             'title' => 'Welcome to ItSolutionStuff.com',
             'date' => date('m/d/Y'),
-            'users' => $users
+            'ordens' => $ordens
         ];
         $pdf = Pdf::loadView('termo', $data);
-
         $pdf->setPaper('A4', 'landscape');
-        $fileName = 'termo-' . date('m-d-Y-His') . '.pdf';
-        Storage::put($storePath . DIRECTORY_SEPARATOR . $fileName, $pdf->output());
-        // $link =  Storage::disk('local')->url('downloads/' . $fileName);
+        $fileName = 'termo.pdf';
+        $pdf->save($storePath . DIRECTORY_SEPARATOR . $fileName);
         return "storage/ordens/pdf/$fileName";
-        // return $pdf->stream('itsolutionstuff.pdf');
+
     }
 }

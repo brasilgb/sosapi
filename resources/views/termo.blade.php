@@ -34,15 +34,15 @@
 
         </tr>
 
-        @foreach($users as $user)
+        @foreach($ordens as $ordem)
 
         <tr>
 
-            <td>{{ $user->id }}</td>
+            <td>{{ $ordem->id }}</td>
 
-            <td>{{ $user->name }}</td>
+            <td>{{ $ordem->cliente->nome }}</td>
 
-            <td>{{ $user->email }}</td>
+            <td>{{ $ordem->status }}</td>
 
         </tr>
 
