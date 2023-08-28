@@ -36,7 +36,6 @@ class ImagemController extends Controller
         };
         if ($request->imagem) {
             foreach ($request->imagem as $file) {
-                // $originalname = $file->getClientOriginalName();
                 $filename = time() . rand(1, 50) . '.' . $file->extension();
                 $file->move($storePath, $filename);
 
@@ -75,6 +74,11 @@ class ImagemController extends Controller
      */
     public function destroy(Imagem $imagem)
     {
+        // dd($imagem);
+        $storePath = public_path('storage/ordens/' . $imagem->ordem_id);
+        if (file_exists($storePath . DIRECTORY_SEPARATOR . $imagem->imagem)) {
+            unlink($storePath . DIRECTORY_SEPARATOR . $imagem->imagem);
+        }
         $deleted = $imagem->delete();
 
         if ($deleted) {
@@ -83,3 +87,14 @@ class ImagemController extends Controller
         return $this->response('Imagem não deletada!', 400);
     }
 }
+/*
+        $storePath = public_path('storage/ordens/' . $request->ordem_id);
+        if (file_exists($storePath . DIRECTORY_SEPARATOR . $image->image)) {
+            unlink($storePath . DIRECTORY_SEPARATOR . $image->image);
+        }
+        $image->galleries()->detach();
+        $image->delete($image);
+        Session::flash('success', 'Imagem deletada com sucesso!');
+        return redirect()->route('images.index');
+
+*/

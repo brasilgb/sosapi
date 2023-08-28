@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\OrdemResource;
 use App\Models\Ordem;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class OrdemController extends Controller
 {
@@ -92,7 +95,7 @@ class OrdemController extends Controller
         if ($validator->fails()) {
             return $this->error('Dados inválidos UPDATE!', 422, $validator->errors());
         }
-        
+
         $data = $request->all();
         $data['dtentrega'] = Carbon::parse($request->dtentrada)->format('Y-m-d H:i:s');
         $updated = $ordem->update($data);
@@ -114,5 +117,27 @@ class OrdemController extends Controller
             return $this->response('Ordem deletada com sucesso!', 200);
         }
         return $this->response('Ordem não deletada!', 400);
+    }
+
+    public function printTermo()
+    {
+        $storePath = public_path('storage/ordens/pdf');
+        if (!file_exists($storePath)) {
+            mkdir($storePath, 0755, true);
+        };
+        $users = User::get();
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ];
+        $pdf = Pdf::loadView('termo', $data);
+
+        $pdf->setPaper('A4', 'landscape');
+        $fileName = 'termo-' . date('m-d-Y-His') . '.pdf';
+        Storage::put($storePath . DIRECTORY_SEPARATOR . $fileName, $pdf->output());
+        // $link =  Storage::disk('local')->url('downloads/' . $fileName);
+        return "storage/ordens/pdf/$fileName";
+        // return $pdf->stream('itsolutionstuff.pdf');
     }
 }

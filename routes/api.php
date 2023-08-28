@@ -28,6 +28,7 @@ Route::prefix('v1')->group(function () {
         'ordens' => 'ordem'
     ]);
     Route::get('/allordens', [OrdemController::class, 'allordens']);
+    Route::get('/printtermo', [OrdemController::class, 'printTermo']);
 
     Route::apiResource('/produtos', ProdutoController::class);
     Route::get('/allprodutos', [ProdutoController::class, 'allprodutos']);
