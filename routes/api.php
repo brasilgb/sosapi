@@ -20,7 +20,7 @@ use App\Http\Controllers\AuthController;
 Route::prefix('v1')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::get('/allusers', [UserController::class, 'allusers']);
-
+    
     Route::apiResource('/clientes', ClienteController::class);
     Route::get('/allclientes', [ClienteController::class, 'allclientes']);
 
@@ -54,5 +54,5 @@ Route::prefix('v1')->group(function () {
     ]);
 
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'ability:admin-access']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
