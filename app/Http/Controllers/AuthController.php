@@ -14,10 +14,10 @@ class AuthController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             return $this->response('Authorized', 200, [
-                'token' => $request->user()->createToken('token-sos', ['admin-access'])->plainTextToken
+                'token' => $request->user()->createToken('token-sos')->plainTextToken
             ]);
         }
-        return $this->response('Not Authorized', 403);
+        return $this->response('Usuário não autorizado. E-mail e/ou senha inválidos', 403);
     }
 
     public function logout(Request $request)
