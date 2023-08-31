@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::get('/allusers', [UserController::class, 'allusers']);
     
-    Route::apiResource('/clientes', ClienteController::class);
+    Route::apiResource('/clientes', ClienteController::class)->middleware('auth:sanctum');
     Route::get('/allclientes', [ClienteController::class, 'allclientes']);
 
     Route::apiResource('/ordens', OrdemController::class)->parameters([
