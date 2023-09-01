@@ -17,6 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        
         $search = $request->get('q');
 
         $query = User::orderBy('id', 'DESC');
@@ -31,6 +32,7 @@ class UserController extends Controller
 
     public function allusers()
     {
+        // return $this->response('Authorized', 200);
         $users = User::all();
         return UserResource::collection($users);
     }
