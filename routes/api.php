@@ -15,6 +15,7 @@ use App\Http\Controllers\AuthController;
 
 
 Route::prefix('v1')->group(function () {
+
     Route::middleware('auth:sanctum')->group(function () {
 
         Route::apiResource('/users', UserController::class);
@@ -56,4 +57,5 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::post('/login', [AuthController::class, 'login']);
+    
 });
