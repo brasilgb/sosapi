@@ -15,10 +15,31 @@ class OrdemResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        /*
+'cpf' => $this->cpf,
+            'nascimento' => $this->nascimento,
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'cep' => $this->cep,
+            'uf' => $this->uf,
+            'cidade' => $this->cidade,
+            'bairro' => $this->bairro,
+            'endereco' => $this->endereco,
+            'complemento' => $this->complemento,
+            'telefone' => $this->telefone,
+            'contato' => $this->contato,
+            'telcontato' => $this->telcontato,
+
+        */
         return [
             'cliente' => [
                 'nome' => $this->cliente->nome,
                 'telefone' => $this->cliente->telefone,
+                'email' => $this->cliente->email,
+                'endereco' => $this->cliente->endereco,
+                'bairro' => $this->cliente->bairro,
+                'cidade' => $this->cliente->cidade,
+                'uf' => $this->cliente->uf,
             ],
             "id" => $this->id,
             "numordem" => $this->numordem,
@@ -31,6 +52,7 @@ class OrdemResource extends JsonResource
             "acessorios" => $this->acessorios,
             "orcamento" => $this->orcamento,
             "descorcamento" => $this->descorcamento,
+            "detalhes" => $this->detalhes,
             "pecas" => $this->pecas,
             "valpecas" => $this->valpecas,
             "valservico" => $this->valservico,
