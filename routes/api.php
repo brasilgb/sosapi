@@ -10,7 +10,7 @@ use App\Http\Controllers\Api\V1\EmailController;
 use App\Http\Controllers\Api\V1\MensagemController;
 use App\Http\Controllers\Api\V1\EmpresaController;
 use App\Http\Controllers\Api\V1\ImagemController;
-use App\Http\Controllers\Api\V1\NotificacaoController;
+use App\Http\Controllers\Api\V1\ImpressaoController;
 use App\Http\Controllers\AuthController;
 
 
@@ -39,14 +39,15 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('/mensagens', MensagemController::class)->parameters([
             'mensagens' => 'mensagem'
         ]);
+        Route::get('/allmensagens', [AgendaController::class, 'allmensagens']);
 
         Route::apiResource('/empresa', EmpresaController::class);
         Route::post('/empresa/upload/{empresa}', [EmpresaController::class, 'upload'])->name('empresa.upload');
 
         Route::apiResource('/email', EmailController::class);
 
-        Route::apiResource('/notificacoes', NotificacaoController::class)->parameters([
-            'notificacoes' => 'notificacao'
+        Route::apiResource('/impressoes', ImpressaoController::class)->parameters([
+            'impressoes' => 'impressao'
         ]);
 
         Route::apiResource('/imagens', ImagemController::class)->parameters([

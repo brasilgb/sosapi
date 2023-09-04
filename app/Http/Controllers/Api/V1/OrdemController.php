@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\OrdemResource;
+use App\Models\Empresa;
 use App\Models\Ordem;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -126,17 +127,26 @@ class OrdemController extends Controller
         if (!file_exists($storePath)) {
             mkdir($storePath, 0755, true);
         };
+        $empresas = Empresa::get();
         $ordens = Ordem::where('id', $id)->with('cliente')->get();
         $data = [
             'title' => 'Welcome to ItSolutionStuff.com',
             'date' => date('m/d/Y'),
-            'ordens' => $ordens
+            'ordens' => $ordens,
+            'empresas' => $empresas,
         ];
+
+        // return view('termo', $data);
         $pdf = Pdf::loadView('termo', $data);
         $pdf->setPaper('A4', 'landscape');
+        $pdf->setOption([
+            'isRemoteEnabled' => true,
+            'dpi' => 150,
+            'isHtml5ParserEnabled' => true,
+            'defaultFont' => 'sans-serif'
+        ]);
         $fileName = 'termo.pdf';
         $pdf->save($storePath . DIRECTORY_SEPARATOR . $fileName);
         return "storage/ordens/pdf/$fileName";
-
     }
 }

@@ -29,6 +29,12 @@ class MensagemController extends Controller
         return MensagemResource::collection($agendas);
     }
 
+    public function allmensagens()
+    {
+        $agendas = Mensagem::all();
+        return MensagemResource::collection($agendas);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

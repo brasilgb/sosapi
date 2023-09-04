@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\OrdemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/printtermo/{id}', [OrdemController::class, 'printTermo']);

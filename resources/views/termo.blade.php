@@ -3,54 +3,26 @@
 <html>
 
 <head>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Laravel 10 Generate PDF Example - ItSolutionStuff.com</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="{{base_path('public/js/tailwind.js')}}"></script>
 </head>
 
 <body>
-
-    <h1>{{ $title }}</h1>
-
-    <p>{{ $date }}</p>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-    tempor incididunt ut labore et dolore magna aliqua.</p>
-
-  
-
-    <table class="table table-bordered">
-
+    @foreach($empresas as $empresa)
+    <table>
         <tr>
+            <td class="flex items-center justify-start">
+                <img src="{{ public_path('/storage/uploads/'. $empresa->logo) }}" alt="Logo">
+                <h1 class="text-3xl text-red-800">{{ $empresa->razao }}</h1>
+            </td>
 
-            <th>ID</th>
-
-            <th>Name</th>
-
-            <th>Email</th>
-
+            <td>
+                dados da empresa jose
+            </td>
         </tr>
-
-        @foreach($ordens as $ordem)
-
-        <tr>
-
-            <td>{{ $ordem->id }}</td>
-
-            <td>{{ $ordem->cliente->nome }}</td>
-
-            <td>{{ $ordem->status }}</td>
-
-        </tr>
-
-        @endforeach
-
     </table>
-
-  
+    @endforeach
 
 </body>
 
