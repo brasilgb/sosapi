@@ -17,6 +17,9 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
+        // if (!auth()->user()->tokenCan('user-store')) {
+        //     return $this->error('Unauthorized', 403);
+        // }
         $search = $request->get('q');
 
         $query = Cliente::orderBy('id', 'DESC');
