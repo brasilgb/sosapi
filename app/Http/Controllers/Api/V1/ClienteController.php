@@ -29,7 +29,7 @@ class ClienteController extends Controller
         }
 
         $clientes = $query->paginate(12);
-        return ClienteResource::collection($clientes);
+        return ClienteResource::collection($clientes,400);
     }
 
     public function allclientes()

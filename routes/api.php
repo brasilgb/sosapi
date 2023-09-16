@@ -56,7 +56,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
     });
-
+    Route::get('/logotipo', [EmpresaController::class, 'logotipo']);
     Route::post('/login', [AuthController::class, 'login']);
     
 });

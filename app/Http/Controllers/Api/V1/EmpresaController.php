@@ -26,6 +26,15 @@ class EmpresaController extends Controller
         return EmpresaResource::collection($empresa);
     }
 
+    public function logotipo() 
+    {
+        $logotipo = Empresa::first()->logo;
+        return response()->json([
+            'data' => [
+                'logo' => $logotipo
+            ]
+        ], 200);
+    }
     /**
      * Display the specified resource.
      */

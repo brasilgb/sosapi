@@ -16,22 +16,22 @@ class ClienteResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'cpf' => $this->cpf,
-            'nascimento' => $this->nascimento,
-            'nome' => $this->nome,
-            'email' => $this->email,
-            'cep' => $this->cep,
-            'uf' => $this->uf,
-            'cidade' => $this->cidade,
-            'bairro' => $this->bairro,
-            'endereco' => $this->endereco,
-            'complemento' => $this->complemento,
-            'telefone' => $this->telefone,
-            'contato' => $this->contato,
-            'telcontato' => $this->telcontato,
-            'obs' => $this->obs,
-            'cadastro' => Carbon::parse($this->created_at)->format('Y/m/d H:i:s'),
-        ];
+                'id' => $this->id,
+                'cpf' => $this->cpf,
+                'nascimento' => $this->nascimento,
+                'nome' => $this->nome,
+                'email' => $this->email,
+                'cep' => $this->cep,
+                'uf' => $this->uf,
+                'cidade' => $this->cidade,
+                'bairro' => $this->bairro,
+                'endereco' => $this->endereco,
+                'complemento' => $this->complemento,
+                'telefone' => $this->telefone,
+                'contato' => $this->contato,
+                'telcontato' => $this->telcontato,
+                'obs' => $this->obs,
+                'cadastro' => Carbon::parse($this->created_at)->format('Y/m/d H:i:s'),
+          ];
     }
 }
