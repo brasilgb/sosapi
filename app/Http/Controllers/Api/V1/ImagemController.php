@@ -32,7 +32,7 @@ class ImagemController extends Controller
     {
         $storePath = public_path('storage/ordens/' . $request->ordem_id);
         if (!file_exists($storePath)) {
-            mkdir($storePath, 0755, true);
+            mkdir($storePath, 0777, true);
         };
         if ($request->imagem) {
             foreach ($request->imagem as $file) {

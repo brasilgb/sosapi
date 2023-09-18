@@ -40,7 +40,6 @@ class EmpresaController extends Controller
      */
     public function upload(Request $request, Empresa $empresa)
     {
-
         $validator = Validator::make($request->all(), [
             'razao' => 'required',
             'cnpj' => 'required',
@@ -66,6 +65,7 @@ class EmpresaController extends Controller
                 unlink($storePath . DIRECTORY_SEPARATOR . $request->logo);
             }
         }
+        $data = $request->all();
         $data['logo'] = $request->hasfile('logo') ? $fileName : $empresa->logo;
 
         $updated = $empresa->update($data);

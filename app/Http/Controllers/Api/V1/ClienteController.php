@@ -89,7 +89,7 @@ class ClienteController extends Controller
         $validator = Validator::make($request->all(), [
             'cpf' => 'required',
             'nome' => 'required',
-            'email' => 'required|email',
+            'email' => "unique:users,email,$cliente->id",
             'cep' => 'required',
             'uf' => 'required',
             'cidade' => 'required',
