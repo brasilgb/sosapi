@@ -41,6 +41,7 @@ class EmpresaController extends Controller
     public function upload(Request $request, Empresa $empresa)
     {
         $validator = Validator::make($request->all(), [
+            'empresa' => 'required',
             'razao' => 'required',
             'cnpj' => 'required',
             'endereco' => 'required',
