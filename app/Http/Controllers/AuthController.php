@@ -15,6 +15,7 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             return $this->response('Authorized', 200, [
                 'token' => $request->user()->createToken('appsos')->plainTextToken,
+                'id' =>$request->user()->id,
                 'name' =>$request->user()->name,
                 'email' => $request->user()->email
             ]);
