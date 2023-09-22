@@ -22,13 +22,14 @@ class OrdemController extends Controller
      */
     public function index(Request $request)
     {
-
+dd($request);
         $search = $request->get('q');
+        $c = $request->get('c');
 
         $query = Ordem::with('cliente')->orderBy('id', 'DESC');
 
-        if ($search) {
-            $query->where('id', 'like', '%' . $search . '%');
+        if ($search || $c) {
+            $query->where('id', 'like', '%' . $search . '%')->orWhere('cliente_id', $c);
         }
 
         $ordens = $query->paginate(12);
