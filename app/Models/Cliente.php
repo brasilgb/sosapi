@@ -26,4 +26,9 @@ class Cliente extends Model
         'telcontato',
         'obs',
     ];
+        
+    public function ordens()
+    {
+        return $this->hasMany(Ordem::class);
+    }
 }

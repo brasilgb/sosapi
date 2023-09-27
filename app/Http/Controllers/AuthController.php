@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
@@ -23,6 +25,27 @@ class AuthController extends Controller
         
         return $this->response('Usuário não autorizado. E-mail e/ou senha inválidos', 403);
     }
+
+public function register(Request $request) {
+    dd($request);
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+    if($user){
+        return 'User registered!';
+    }else{
+        return 'Erro ao registrar usuario';
+    }
+
+}
 
     public function logout(Request $request)
     {

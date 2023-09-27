@@ -22,14 +22,15 @@ class ClienteController extends Controller
         // }
         $search = $request->get('q');
 
-        $query = Cliente::orderBy('id', 'DESC');
+        $query = Cliente::with('ordens')->orderBy('id', 'DESC');
 
         if ($search) {
             $query->where('nome', 'like', '%' . $search . '%');
         }
 
         $clientes = $query->paginate(12);
-        return ClienteResource::collection($clientes,400);
+        return $clientes;
+        // return ClienteResource::collection($clientes,400);
     }
 
     public function allclientes()
