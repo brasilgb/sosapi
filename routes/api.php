@@ -58,6 +58,5 @@ Route::prefix('v1')->group(function () {
     });
     Route::get('/logotipo', [EmpresaController::class, 'logotipo']);
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
     
 });
