@@ -16,9 +16,9 @@ use App\Http\Controllers\AuthController;
 
 Route::prefix('v1')->group(function () {
 
+    Route::apiResource('/users', UserController::class);
     Route::middleware('auth:sanctum')->group(function () {
 
-        Route::apiResource('/users', UserController::class);
         Route::get('/allusers', [UserController::class, 'allusers']);
 
         Route::apiResource('/clientes', ClienteController::class);
